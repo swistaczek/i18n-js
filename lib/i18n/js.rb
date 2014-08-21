@@ -139,7 +139,9 @@ module I18n
     # Initialize and return translations
     def self.translations
       ::I18n.backend.instance_eval do
-        init_translations unless initialized?
+        if respond_to?(:initialized?)
+          init_translations unless initialized?
+        end
         translations.slice(*::I18n.available_locales)
       end
     end
